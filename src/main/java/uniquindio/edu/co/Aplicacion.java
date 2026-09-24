@@ -29,6 +29,7 @@ public class Aplicacion {
             System.out.println("--------Compra / Venta-----------");
             System.out.println("10. Realizar compra.");
             System.out.println("11. Mostrar historial de compras.");
+            System.out.println("12. reporte de ventas por fecha. ");
 
             System.out.println("0. Salir.");
 
