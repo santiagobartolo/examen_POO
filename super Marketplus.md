@@ -4,9 +4,9 @@ El desarrollo e implementación de un sistema de gestión comercial e inventario
 
 **¿Qué información es relevante dado el problema anterior?**
 
-supermercado: Nombre, dirección y teléfono.
+supermercado: Nombre comercial, dirección y teléfono.
 
-Cliente: Nombre comercial, documento identidad, teléfono y correo electrónico.
+Cliente: Nombre, documento identidad, teléfono y correo electrónico.
 
 Producto: Código, nombre, precio unitario, cantidad disponibesle 
 
