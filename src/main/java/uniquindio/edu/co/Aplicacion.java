@@ -7,8 +7,7 @@ public class Aplicacion {
     public static void main() {
 
         Scanner sc = new Scanner(System.in);
-
-        // Instanciación con el constructor de 3 parámetros
+        
         Supermercado supermercado = new Supermercado("MarketPlus", "Carrera 15 #12-30", "31242526");
 
         int opcion = -1;
