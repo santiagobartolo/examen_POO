@@ -1,30 +1,37 @@
 package uniquindio.edu.co;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Compra {
-    //atributos y bueno relaciones tambien
-    private String codigo;
+
+    private String codigoCompra;
     private LocalDateTime fechaHora;
+    private MetodoPago metodoPago;
+    private double valorTotal;
     private Cliente cliente;
-    //listas, bueno solo es una
-    private List<DetalleCompra> listDetalleCompras;
+    //lista
+    private List<DetalleCompra> listaDetalles;
 
-    public Compra(String codigo, LocalDateTime fechaHora, Cliente cliente, List<DetalleCompra> listDetalleCompras) {
-        this.codigo = codigo;
-        this.fechaHora = fechaHora;
+    public Compra(String codigoCompra, MetodoPago metodoPago, Cliente cliente) {
+        this.codigoCompra = codigoCompra;
+        this.metodoPago = metodoPago;
+        this.valorTotal = valorTotal;
         this.cliente = cliente;
-        this.listDetalleCompras = listDetalleCompras;
+
+        this.fechaHora = LocalDateTime.now();
+        this.valorTotal = valorTotal;
+        this.listaDetalles = new ArrayList<>();
     }
 
-    public String getCodigo() {
-        return codigo;
+
+    public String getCodigoCompra() {
+        return codigoCompra;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setCodigoCompra(String codigoCompra) {
+        this.codigoCompra = codigoCompra;
     }
 
     public LocalDateTime getFechaHora() {
@@ -35,6 +42,22 @@ public class Compra {
         this.fechaHora = fechaHora;
     }
 
+    public MetodoPago getMetodoPago() {
+        return metodoPago;
+    }
+
+    public void setMetodoPago(MetodoPago metodoPago) {
+        this.metodoPago = metodoPago;
+    }
+
+    public double getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(double valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+
     public Cliente getCliente() {
         return cliente;
     }
@@ -43,21 +66,59 @@ public class Compra {
         this.cliente = cliente;
     }
 
-    public List<DetalleCompra> getListDetalleCompras() {
-        return listDetalleCompras;
+    public List<DetalleCompra> getListaDetalles() {
+        return listaDetalles;
     }
 
-    public void setListDetalleCompras(List<DetalleCompra> listDetalleCompras) {
-        this.listDetalleCompras = listDetalleCompras;
+    public void setListaDetalles(List<DetalleCompra> listaDetalles) {
+        this.listaDetalles = listaDetalles;
+    }
+
+    public boolean agregarDetalle(DetalleCompra detalle) {
+        boolean exito = false;
+        Producto producto = detalle.getProducto();
+        int cantidad = detalle.getCantidadSolicitada();
+
+        // esto verifica que el producto tenga stock suficiente
+        if (producto.tieneStockSuficiente(cantidad)) {
+            //despues de verificar obviamente hay que descontar la cantidad del stock actual
+            int nuevoStock = producto.getCantidadDisponible() - cantidad;
+            producto.setCantidadDisponible(nuevoStock);
+
+            this.listaDetalles.add(detalle);
+            this.valorTotal = calcularValorTotal();
+
+            exito = true; // Proceso exitoso
+        } else {
+            System.out.println("El stock es insuficiente en este momento para el producto: " + producto.getNombre());
+        }
+
+        return exito;
+    }
+
+    public double calcularValorTotal() {
+        double acumuladorTotal = 0.0; //solo es para iniciar la acumulacion del precio total
+
+        //esto recorre la lista de compras teniendo encuenta lo que si tiene stock
+        for (DetalleCompra detalle : this.listaDetalles) {
+            acumuladorTotal += detalle.getSubtotal();
+        }
+
+        // esto solo actualiza el valor total por el acumulado que esta al inicio
+        this.valorTotal = acumuladorTotal;
+
+        return this.valorTotal;//y ya solo retorna
     }
 
     @Override
     public String toString() {
         return "Compra{" +
-                "codigo='" + codigo + '\'' +
+                "codigoCompra='" + codigoCompra + '\'' +
                 ", fechaHora=" + fechaHora +
+                ", metodoPago=" + metodoPago +
+                ", valorTotal=" + valorTotal +
                 ", cliente=" + cliente +
-                ", listDetalleCompras=" + listDetalleCompras +
+                ", listaDetalles=" + listaDetalles +
                 '}';
     }
 }

@@ -1,33 +1,32 @@
 package uniquindio.edu.co;
 
 public class Cliente {
-    //los atributos del cliente, seria interesante una obcion donde el cliente se va sin pagar JAJJAJAJAJAJ
-    private int documento;
-    private String nombre;
+    private String documentoIdentidad;
+    private String nombreCompleto;
     private String telefono;
     private String correoElectronico;
 
-    public Cliente(int documento, String nombre, String telefono, String correoElectronico) {
-        this.documento = documento;
-        this.nombre = nombre;
+    public Cliente(String documentoIdentidad, String nombreCompleto, String telefono, String correoElectronico) {
+        this.documentoIdentidad = documentoIdentidad;
+        this.nombreCompleto = nombreCompleto;
         this.telefono = telefono;
         this.correoElectronico = correoElectronico;
     }
 
-    public int getDocumento() {
-        return documento;
+    public String getDocumentoIdentidad() {
+        return documentoIdentidad;
     }
 
-    public void setDocumento(int documento) {
-        this.documento = documento;
+    public void setDocumentoIdentidad(String documentoIdentidad) {
+        this.documentoIdentidad = documentoIdentidad;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombreCompleto() {
+        return nombreCompleto;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombreCompleto(String nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
     }
 
     public String getTelefono() {
@@ -49,10 +48,11 @@ public class Cliente {
     @Override
     public String toString() {
         return "Cliente{" +
-                "documento=" + documento +
-                ", nombre='" + nombre + '\'' +
+                "documentoIdentidad='" + documentoIdentidad + '\'' +
+                ", nombreCompleto='" + nombreCompleto + '\'' +
                 ", telefono='" + telefono + '\'' +
                 ", correoElectronico='" + correoElectronico + '\'' +
                 '}';
     }
 }
+
